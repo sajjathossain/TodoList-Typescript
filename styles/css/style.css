@@ -12,3 +12,21 @@ body{
 .infos {
     background-color: #fff;
 }
+
+.infos:hover {
+    box-shadow: 4px 4px 5px rgba(204, 204, 204, 0.7),
+                 4px 4px 5px rgba(204, 204, 204, 0.7),
+                  -1px -1px 4px rgba(204, 204, 204, 0.7);
+    font-size: 1.5em;
+    transition: .3s ease-in-out;
+}
+
+.descAndButt{
+    display: grid !important;
+    direction: column;
+    grid-template-columns: 5fr 1fr;
+}
+
+.disableCard {
+    background-color: #fff;
+}

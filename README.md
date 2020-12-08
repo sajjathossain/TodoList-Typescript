@@ -5,5 +5,5 @@
 ## Technologies 
 ```
 * TypeScript
-* SASS
+* Bootstrap CSS
 ```

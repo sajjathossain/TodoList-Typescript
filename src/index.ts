@@ -60,11 +60,11 @@ function displayTasks() {
         
         output += `
         <div class="col-md-12 col-lg-12 border border-success mt-2 p-2 rounded infos">
-            <div class="h4 text-warning">Task ${(taskList.indexOf(el) + 1)}</div>
+            <div class="h5 text-warning">Task ${(taskList.indexOf(el) + 1)}</div>
             <div class="descAndButt">
                 <div class="d-flex flex-row">
-                    <div class="h5 text-secondary">Task Description :</div>
-                    <div class="h5 text-success ml-2">${el.taskVal}</div>
+                    <div class="p text-secondary">Task Description :</div>
+                    <div class="p text-success ml-2">${el.taskVal}</div>
                 </div>
                 <div class="d-flex flex-row mb-3">
                     <button class="btn btn-info mr-2 ${el['isDone']} " id="${taskList.indexOf(el)}" onClick="doneTask(this.id)">Done</button>

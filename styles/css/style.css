@@ -4,6 +4,12 @@ body{
     background-color: #eee;
 }
 
+.h2:hover {
+    color: rgba(117, 206, 117, 0.945) !important;
+    cursor: pointer !important;
+    transition: .3s ease-in-out;
+}
+
 .tasks {
     height: 5vh;
     width: 50vw;

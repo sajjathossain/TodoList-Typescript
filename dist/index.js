@@ -34,19 +34,18 @@ function deleteTask(Id) {
     var localStorageToObject = JSON.parse(localStorage.getItem(key));
     if (localStorageToObject['isDone'] === "disabled") {
         localStorage.removeItem("" + Id);
-        location.reload();
         displayTasks();
     }
     else {
         var confirmation = prompt("Do you really wanna delete? y/n ");
         if (confirmation.toLowerCase() === "y") {
             localStorage.removeItem("" + Id);
-            location.reload();
             displayTasks();
         }
     }
     if (localStorage.length === 0) {
         localStorage.clear();
+        location.reload();
     }
     console.log(Id);
 }
@@ -54,7 +53,7 @@ function deleteTask(Id) {
 function displayTasks() {
     var output = "";
     if (localStorage.length === 0) {
-        document.getElementById("error").innerHTML = '<h4 class="mt-5 text-center text-danger h4">Task Empty! 😁</h4>';
+        document.getElementById("error").innerHTML = '<h4 class="mt-5 text-center text-danger h4">Task List Is Empty! 😁</h4>';
     }
     else {
         document.getElementById("error").style.display = "none";

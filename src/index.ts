@@ -84,7 +84,7 @@ function displayTasks() {
     let output: string = "";
 
     if (localStorage.length === 0) {
-        document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-danger h4">Task List Is Empty! 😁</h4>'       
+        document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-warning h4">Task List Is Empty! 😁</h4>'       
     } else {
         document.getElementById("error")!.style.display = "none";
         output = "";

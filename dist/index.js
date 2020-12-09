@@ -40,12 +40,14 @@ function deleteTask(Id) {
     var localStorageToObject = JSON.parse(localStorage.getItem(key));
     if (localStorageToObject['isDone'] === "disabled") {
         localStorage.removeItem("" + Id);
+        location.reload();
         displayTasks();
     }
     else {
         var confirmation = prompt("Do you really wanna delete? y/n ");
         if (confirmation.toLowerCase() === "y") {
             localStorage.removeItem("" + Id);
+            location.reload();
             displayTasks();
         }
     }
@@ -76,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     addBtn.addEventListener("click", function () {
         if (task.value !== "") {
             addTask();
+            location.reload();
         }
         else {
             alert("Please add some text!");

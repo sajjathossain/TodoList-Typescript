@@ -26,6 +26,7 @@ function addTask() {
     const localStorageLength = window.localStorage.length
     localStorage.setItem(`${localStorageLength}`, JSON.stringify(obj));
 
+
     console.log(localStorage)
 
 
@@ -60,13 +61,16 @@ function deleteTask(Id: number) {
     const key: string = localStorage.key(Id)!;
     const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
     
+
     if (localStorageToObject['isDone'] === "disabled") {
         localStorage.removeItem(`${Id}`);
+        location.reload();
         displayTasks();
     } else {
         const confirmation = prompt("Do you really wanna delete? y/n ")!;
         if (confirmation.toLowerCase() === "y") {
             localStorage.removeItem(`${Id}`);
+            location.reload();
             displayTasks();
         }
     }
@@ -125,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (task.value !== "") {
             addTask();
+            location.reload();
         } else {
             alert("Please add some text!");
         }

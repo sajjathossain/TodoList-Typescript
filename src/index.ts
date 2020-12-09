@@ -1,4 +1,3 @@
-
 const addBtn = document.querySelector("#add")!;
 const task = document.querySelector("#task")! as HTMLInputElement;
 const showTask = document.querySelector("#add-task")!;
@@ -40,13 +39,10 @@ function doneTask(taskId: number) {
 
     const key: string = localStorage.key(taskId)!;
     const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
-    if (localStorage.length !== 0) {
-        localStorageToObject["isDone"] = "disabled";
-        localStorage.setItem(`${taskId}`, `${localStorageToObject}`);
-    } else {
-        localStorageToObject["isDone"] = "disabled";
-        localStorage.setItem(`${localStorage.length}`, `${localStorageToObject}`);
-    }
+    
+    localStorageToObject["isDone"] = "disabled";
+    localStorage.setItem(`${taskId}`, `${JSON.stringify(localStorageToObject)}`);
+    
     document.getElementById(`${taskId}`)!.style.opacity = '0.5';
     document.getElementById(`${taskId}`)!.style.pointerEvents = 'none';
     console.log(taskId);
@@ -68,6 +64,7 @@ function deleteTask(Id: number) {
         displayTasks();
     } else {
         const confirmation = prompt("Do you really wanna delete? y/n ")!;
+    
         if (confirmation.toLowerCase() === "y") {
             localStorage.removeItem(`${Id}`);
             location.reload();
@@ -86,6 +83,7 @@ function displayTasks() {
     if (localStorage.length === 0) {
         document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-danger h4">No Items available</h4>'       
     } else {
+        document.getElementById("error")!.style.display = "none";
         output = "";
         for (let el = 0; el < localStorage.length; el++) {
             const key: string = localStorage.key(el)!;
@@ -129,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (task.value !== "") {
             addTask();
-            location.reload();
         } else {
             alert("Please add some text!");
         }

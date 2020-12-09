@@ -4,7 +4,9 @@ var task = document.querySelector("#task");
 var showTask = document.querySelector("#add-task");
 var doneBTN = document.querySelectorAll("button");
 var deleteBTN = document.querySelector(".deleteBTN");
+// List of objects
 var taskList = [];
+// function to add new task
 function addTask() {
     var obj = {
         taskVal: "",
@@ -15,6 +17,7 @@ function addTask() {
     taskList.push(obj);
     displayTasks();
 }
+// function to define a task as finished
 function doneTask(taskId) {
     taskList[taskId]["isDone"] = "disabled";
     document.getElementById("" + taskId).style.opacity = '0.5';
@@ -22,6 +25,7 @@ function doneTask(taskId) {
     console.log(taskId);
     console.log(taskList[taskId]["isDone"]);
 }
+// Function to delete a task
 function deleteTask(Id) {
     if (taskList[Id]['isDone'] === "disabled") {
         taskList.splice(Id, 1);
@@ -37,6 +41,7 @@ function deleteTask(Id) {
     console.log(Id);
     console.log(taskList);
 }
+// Function to display all available tasks
 function displayTasks() {
     var output = "";
     taskList.forEach(function (el) {
@@ -45,6 +50,7 @@ function displayTasks() {
     task.value = "";
     showTask.innerHTML = output;
 }
+// start position
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Connected perfectly....");
     addBtn.addEventListener("click", function () {

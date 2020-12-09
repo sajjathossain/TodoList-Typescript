@@ -5,13 +5,17 @@ const showTask = document.querySelector("#add-task")!;
 const doneBTN = document.querySelectorAll("button")!;
 const deleteBTN = document.querySelector(".deleteBTN")!;
 
+// User defined data type
 interface objectTypes {
     taskVal: string,
     isDone: string
 }
 
+// List of objects
 let taskList: Array<objectTypes> = [];
 
+
+// function to add new task
 function addTask() {
         let obj: objectTypes = {
             taskVal: "",
@@ -25,20 +29,23 @@ function addTask() {
         taskList.push(obj);
 
         displayTasks();        
-        
-        
+                
 }
 
 
+// function to define a task as finished
 function doneTask(taskId: number) {
+
     taskList[taskId]["isDone"] = "disabled";
     document.getElementById(`${taskId}`)!.style.opacity = '0.5';
     document.getElementById(`${taskId}`)!.style.pointerEvents = 'none';
     console.log(taskId);
     console.log(taskList[taskId]["isDone"]);
+
 }
 
 
+// Function to delete a task
 function deleteTask(Id: number) {
     if (taskList[Id]['isDone'] === "disabled") {
         taskList.splice(Id, 1);
@@ -54,6 +61,8 @@ function deleteTask(Id: number) {
     console.log(taskList);
 }
 
+
+// Function to display all available tasks
 function displayTasks() {
     let output: string = "";
     taskList.forEach((el) => {
@@ -83,6 +92,7 @@ function displayTasks() {
 }
 
 
+// start position
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("Connected perfectly....");

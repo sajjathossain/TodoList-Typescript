@@ -71,6 +71,10 @@ function deleteTask(Id: number) {
             displayTasks();
         }
     }
+
+    if (localStorage.length === 0) {
+        localStorage.clear();
+    }
     console.log(Id);
 }
 
@@ -81,7 +85,7 @@ function displayTasks() {
     let output: string = "";
 
     if (localStorage.length === 0) {
-        document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-danger h4">No Items available</h4>'       
+        document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-danger h4">Task Empty! 😁</h4>'       
     } else {
         document.getElementById("error")!.style.display = "none";
         output = "";
@@ -90,7 +94,7 @@ function displayTasks() {
             const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
         
             output += `
-        <div class="col-md-12 col-lg-12 border border-success mt-2 p-2 rounded infos">
+        <div class="col-md-12 col-lg-12 col-md-12 col-sm-12 border border-success mt-2 p-2 rounded infos">
             <div class="h5 text-warning">Task ${el + 1}</div>
             <div class="descAndButt">
                 <div class="d-flex flex-row">

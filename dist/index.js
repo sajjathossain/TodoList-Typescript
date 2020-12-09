@@ -45,13 +45,16 @@ function deleteTask(Id) {
             displayTasks();
         }
     }
+    if (localStorage.length === 0) {
+        localStorage.clear();
+    }
     console.log(Id);
 }
 // Function to display all available tasks
 function displayTasks() {
     var output = "";
     if (localStorage.length === 0) {
-        document.getElementById("error").innerHTML = '<h4 class="mt-5 text-center text-danger h4">No Items available</h4>';
+        document.getElementById("error").innerHTML = '<h4 class="mt-5 text-center text-danger h4">Task Empty! 😁</h4>';
     }
     else {
         document.getElementById("error").style.display = "none";
@@ -59,7 +62,7 @@ function displayTasks() {
         for (var el = 0; el < localStorage.length; el++) {
             var key = localStorage.key(el);
             var localStorageToObject = JSON.parse(localStorage.getItem(key));
-            output += "\n        <div class=\"col-md-12 col-lg-12 border border-success mt-2 p-2 rounded infos\">\n            <div class=\"h5 text-warning\">Task " + (el + 1) + "</div>\n            <div class=\"descAndButt\">\n                <div class=\"d-flex flex-row\">\n                    <div class=\"p text-secondary\">Task Description :</div>\n                    <div class=\"p text-success ml-2\">" + localStorageToObject["taskVal"] + "</div>\n                </div>\n                <div class=\"d-flex flex-row mb-3\">\n                    <button class=\"btn btn-info mr-2 " + localStorageToObject['isDone'] + " \" id=\"" + ("" + el) + "\" onClick=\"doneTask(this.id)\">Done</button>\n                    <button class=\"btn btn-danger deleteBTN\" id=\"" + ("" + el) + "\" onClick=\"deleteTask(this.id)\">Delete</button>\n                </div>\n                \n            </div>\n        </div>\n        ";
+            output += "\n        <div class=\"col-md-12 col-lg-12 col-md-12 col-sm-12 border border-success mt-2 p-2 rounded infos\">\n            <div class=\"h5 text-warning\">Task " + (el + 1) + "</div>\n            <div class=\"descAndButt\">\n                <div class=\"d-flex flex-row\">\n                    <div class=\"p text-secondary\">Task Description :</div>\n                    <div class=\"p text-success ml-2\">" + localStorageToObject["taskVal"] + "</div>\n                </div>\n                <div class=\"d-flex flex-row mb-3\">\n                    <button class=\"btn btn-info mr-2 " + localStorageToObject['isDone'] + " \" id=\"" + ("" + el) + "\" onClick=\"doneTask(this.id)\">Done</button>\n                    <button class=\"btn btn-danger deleteBTN\" id=\"" + ("" + el) + "\" onClick=\"deleteTask(this.id)\">Delete</button>\n                </div>\n                \n            </div>\n        </div>\n        ";
         }
         ;
     }

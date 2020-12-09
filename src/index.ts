@@ -11,24 +11,25 @@ interface objectTypes {
     isDone: string
 }
 
-// List of objects
-let taskList: Array<objectTypes> = [];
 
 
 // function to add new task
 function addTask() {
-        let obj: objectTypes = {
-            taskVal: "",
-            isDone: ""
-        }
+    let obj: objectTypes = {
+        taskVal: "",
+        isDone: ""
+    }
 
-        obj["taskVal"] = (task.value).toString();
-        obj['isDone'] = "";
+    obj["taskVal"] = (task.value).toString();
+    obj['isDone'] = "";
+
+    const localStorageLength = window.localStorage.length
+    localStorage.setItem(`${localStorageLength}`, JSON.stringify(obj));
+
+    console.log(localStorage)
 
 
-        taskList.push(obj);
-
-        displayTasks();        
+    displayTasks();        
                 
 }
 
@@ -36,55 +37,75 @@ function addTask() {
 // function to define a task as finished
 function doneTask(taskId: number) {
 
-    taskList[taskId]["isDone"] = "disabled";
+    const key: string = localStorage.key(taskId)!;
+    const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
+    if (localStorage.length !== 0) {
+        localStorageToObject["isDone"] = "disabled";
+        localStorage.setItem(`${taskId}`, `${localStorageToObject}`);
+    } else {
+        localStorageToObject["isDone"] = "disabled";
+        localStorage.setItem(`${localStorage.length}`, `${localStorageToObject}`);
+    }
     document.getElementById(`${taskId}`)!.style.opacity = '0.5';
     document.getElementById(`${taskId}`)!.style.pointerEvents = 'none';
     console.log(taskId);
-    console.log(taskList[taskId]["isDone"]);
+    console.log(localStorageToObject["isDone"]);
 
 }
 
 
 // Function to delete a task
 function deleteTask(Id: number) {
-    if (taskList[Id]['isDone'] === "disabled") {
-        taskList.splice(Id, 1);
+
+    const key: string = localStorage.key(Id)!;
+    const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
+    
+    if (localStorageToObject['isDone'] === "disabled") {
+        localStorage.removeItem(`${Id}`);
         displayTasks();
     } else {
         const confirmation = prompt("Do you really wanna delete? y/n ")!;
         if (confirmation.toLowerCase() === "y") {
-            taskList.splice(Id, 1);
+            localStorage.removeItem(`${Id}`);
             displayTasks();
         }
     }
     console.log(Id);
-    console.log(taskList);
 }
 
 
 // Function to display all available tasks
 function displayTasks() {
+
     let output: string = "";
-    taskList.forEach((el) => {
+
+    if (localStorage.length === 0) {
+        document.getElementById("error")!.innerHTML = '<h4 class="mt-5 text-center text-danger h4">No Items available</h4>'       
+    } else {
+        output = "";
+        for (let el = 0; el < localStorage.length; el++) {
+            const key: string = localStorage.key(el)!;
+            const localStorageToObject: objectTypes = JSON.parse(localStorage.getItem(key)!)!;
         
-        output += `
+            output += `
         <div class="col-md-12 col-lg-12 border border-success mt-2 p-2 rounded infos">
-            <div class="h5 text-warning">Task ${(taskList.indexOf(el) + 1)}</div>
+            <div class="h5 text-warning">Task ${el + 1}</div>
             <div class="descAndButt">
                 <div class="d-flex flex-row">
                     <div class="p text-secondary">Task Description :</div>
-                    <div class="p text-success ml-2">${el.taskVal}</div>
+                    <div class="p text-success ml-2">${localStorageToObject["taskVal"]}</div>
                 </div>
                 <div class="d-flex flex-row mb-3">
-                    <button class="btn btn-info mr-2 ${el['isDone']} " id="${taskList.indexOf(el)}" onClick="doneTask(this.id)">Done</button>
-                    <button class="btn btn-danger deleteBTN" id="${taskList.indexOf(el)}" onClick="deleteTask(this.id)">Delete</button>
+                    <button class="btn btn-info mr-2 ${localStorageToObject['isDone']} " id="${`${el}`}" onClick="doneTask(this.id)">Done</button>
+                    <button class="btn btn-danger deleteBTN" id="${`${el}`}" onClick="deleteTask(this.id)">Delete</button>
                 </div>
                 
             </div>
         </div>
         `;
          
-    });
+        };
+    }
 
     task.value = "";
     showTask.innerHTML = output;
@@ -95,7 +116,10 @@ function displayTasks() {
 // start position
 document.addEventListener("DOMContentLoaded", () => {
 
+
     console.log("Connected perfectly....");
+
+    displayTasks();
 
     addBtn.addEventListener("click", () => {
 

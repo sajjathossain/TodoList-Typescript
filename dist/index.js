@@ -14,7 +14,7 @@ function addTask() {
     obj['isDone'] = "";
     var localStorageLength = window.localStorage.length;
     localStorage.setItem("" + localStorageLength, JSON.stringify(obj));
-    console.log(localStorage);
+    // console.log(localStorage);
     displayTasks();
 }
 // function to define a task as finished
@@ -25,8 +25,8 @@ function doneTask(taskId) {
     localStorage.setItem("" + taskId, "" + JSON.stringify(localStorageToObject));
     document.getElementById("" + taskId).style.opacity = '0.5';
     document.getElementById("" + taskId).style.pointerEvents = 'none';
-    console.log(taskId);
-    console.log(localStorageToObject["isDone"]);
+    // console.log(taskId);
+    // console.log(localStorageToObject["isDone"]);
 }
 // Function to delete a task
 function deleteTask(Id) {
@@ -43,17 +43,14 @@ function deleteTask(Id) {
             displayTasks();
         }
     }
-    if (localStorage.length === 0) {
-        localStorage.clear();
-        location.reload();
-    }
-    console.log(Id);
+    // console.log(Id);
 }
 // Function to display all available tasks
 function displayTasks() {
     var output = "";
     if (localStorage.length === 0) {
-        document.getElementById("error").innerHTML = '<h4 class="mt-5 text-center text-warning h4">Task List Is Empty! 😁</h4>';
+        localStorage.clear();
+        document.getElementById("error").style.display = "block";
     }
     else {
         document.getElementById("error").style.display = "none";
